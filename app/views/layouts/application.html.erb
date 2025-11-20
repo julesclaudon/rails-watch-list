@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>RailsWatchList</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,6 +12,32 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
+      <div class="container">
+
+        <%= link_to "RailsWatchList", lists_path, class: "navbar-brand fw-bold fs-3" %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item me-3">
+              <%= link_to lists_path, class: "nav-link fw-semibold" do %>
+                <i class="fa-solid fa-list me-1"></i> Toutes les listes
+              <% end %>
+
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+    <main>
+      <%= yield %>
+    </main>
+
   </body>
 </html>
