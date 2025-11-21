@@ -1,5 +1,6 @@
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :photo, as: :file %>
-  <%= f.submit %>
+<%= simple_form_for(@list, html: { multipart: true }) do |f| %>
+  <%= f.input :name, label: "Nom de la liste" %>
+  <%= f.input :photo, as: :file, label: "Photo de la liste",
+              input_html: { class: "form-control" } %>
+  <%= f.submit "Créer la liste", class: "btn btn-primary mt-3" %>
 <% end %>

@@ -1,16 +1,23 @@
-<div class="container mt-5">
+<div class="container mt-4" style="max-width: 600px;">
 
-  <div class="card shadow-sm p-5 mx-auto" style="max-width: 600px;">
-    <h1 class="fw-bold mb-4">Créer une liste</h1>
+  <h1 class="fw-bold mb-4">Créer une nouvelle liste</h1>
 
-    <%= simple_form_for(@list) do |f| %>
+  <div class="card p-4 shadow-sm">
+    <%= simple_form_for @list, html: { multipart: true } do |f| %>
+
       <%= f.input :name, label: "Nom de la liste" %>
-      <%= f.submit "Créer", class: "btn btn-primary w-100 mt-3" %>
-    <% end %>
 
-    <%= link_to lists_path, class: "btn btn-secondary w-100 mt-3" do %>
-      <i class="fa-solid fa-arrow-left me-1"></i> Retour
+      <%= f.input :photo,
+                  as: :file,
+                  label: "Photo de la liste",
+                  input_html: { class: "form-control" } %>
+
+      <%= f.submit "Créer la liste", class: "btn btn-primary mt-3" %>
+
     <% end %>
   </div>
 
+  <%= link_to "Retour", lists_path, class: "btn btn-secondary mt-3" %>
+
 </div>
+
