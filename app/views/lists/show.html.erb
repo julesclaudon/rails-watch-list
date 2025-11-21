@@ -8,6 +8,13 @@
     <% end %>
   </div>
 
+    <% if @list.photo.attached? %>
+    <%= image_tag url_for(@list.photo),
+                  class: "img-fluid rounded shadow-sm mb-4",
+                  alt: @list.name,
+                  style: "max-height: 360px; width: 100%; object-fit: cover;" %>
+  <% end %>
+
   <h2 class="fw-semibold mb-3">Signets</h2>
 
   <% @list.bookmarks.each do |bookmark| %>
