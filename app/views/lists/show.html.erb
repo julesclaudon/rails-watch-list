@@ -8,12 +8,6 @@
     <% end %>
   </div>
 
-  <% if @list.photo.attached? %>
-    <img src="<%= url_for(@list.photo) %>"
-         class="img-fluid rounded mb-4 shadow-sm"
-         alt="<%= @list.name %>">
-  <% end %>
-
   <h2 class="fw-semibold mb-3">Signets</h2>
 
   <% @list.bookmarks.each do |bookmark| %>
