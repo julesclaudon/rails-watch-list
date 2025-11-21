@@ -23,6 +23,11 @@
           </p>
 
           <%= link_to "Voir la liste", list, class: "btn btn-outline-primary" %>
+          <%= link_to list_path(list),
+                    data: { turbo_method: :delete, turbo_confirm: "Supprimer cette liste ?" },
+                    class: "btn btn-danger" do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
         </div>
       </div>
     <% end %>
