@@ -1,31 +1,41 @@
-<div class="container mt-4">
+<div class="container mt-5">
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold"><%= @list.name %></h1>
-
-    <%= link_to new_list_bookmark_path(@list), class: "btn btn-success px-4" do %>
-      <i class="fa-solid fa-plus me-1"></i> Ajouter un signet
+    <h1 class="fw-bold text-dark"><%= @list.name %></h1>
+    <%= link_to new_list_bookmark_path(@list), class: "btn btn-success d-flex align-items-center gap-1 px-4" do %>
+      <i class="fa-solid fa-plus"></i> Ajouter un signet
     <% end %>
   </div>
 
-    <% if @list.photo.attached? %>
-    <%= image_tag url_for(@list.photo),
-                  class: "img-fluid rounded shadow-sm mb-4",
-                  alt: @list.name,
-                  style: "max-height: 360px; width: 100%; object-fit: cover;" %>
+  <% if @list.photo.attached? %>
+    <div class="mb-4 position-relative rounded overflow-hidden shadow-sm">
+      <%= image_tag url_for(@list.photo),
+                    class: "img-fluid w-100",
+                    style: "max-height: 360px; object-fit: cover;" %>
+      <div class="position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-25 p-2">
+        <h2 class="text-white fw-bold m-0"><%= @list.name %></h2>
+      </div>
+    </div>
   <% end %>
 
   <h2 class="fw-semibold mb-3">Signets</h2>
-
   <% @list.bookmarks.each do |bookmark| %>
-    <div class="card shadow-sm p-4 mb-4">
-
+    <div class="card shadow-sm mb-3 p-3" style="transition: transform 0.2s;"
+         onmouseover="this.style.transform='translateY(-3px)';"
+         onmouseout="this.style.transform='translateY(0)';">
       <div class="row align-items-center">
 
         <div class="col-12 col-md-3 mb-3 mb-md-0">
-          <img src="<%= bookmark.movie.poster_url %>"
-               alt="Movie"
-               class="img-fluid rounded shadow-sm">
+          <% if bookmark.movie.poster_url.present? %>
+            <%= image_tag bookmark.movie.poster_url,
+                          alt: "Movie",
+                          class: "img-fluid rounded shadow-sm w-100",
+                          style: "height: 150px; object-fit: cover;" %>
+          <% else %>
+            <div class="bg-light text-center rounded d-flex align-items-center justify-content-center" style="height: 150px;">
+              <i class="fa-solid fa-film fa-2x text-muted"></i>
+            </div>
+          <% end %>
         </div>
 
         <div class="col-12 col-md-7">
@@ -42,12 +52,13 @@
         </div>
 
       </div>
-
     </div>
   <% end %>
 
-  <%= link_to lists_path, class: "btn btn-secondary mt-4 px-3" do %>
-    <i class="fa-solid fa-arrow-left me-1"></i> Retour
-  <% end %>
+  <div class="mt-4">
+    <%= link_to lists_path, class: "btn btn-secondary d-inline-flex align-items-center gap-1" do %>
+      <i class="fa-solid fa-arrow-left"></i> Retour
+    <% end %>
+  </div>
 
 </div>

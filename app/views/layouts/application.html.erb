@@ -3,7 +3,6 @@
   <head>
     <title>WatchList</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,33 +10,40 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
+  <body class="bg-light text-dark" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
       <div class="container">
+        <%= link_to "🎞️ WatchList", root_path, class: "navbar-brand fw-bold" %>
 
-        <%= link_to "WatchList", lists_path, class: "navbar-brand fw-bold fs-3" %>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item me-3">
-              <%= link_to lists_path, class: "nav-link fw-semibold" do %>
-                <i class="fa-solid fa-list me-1"></i> Toutes les listes
-              <% end %>
-
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item me-2">
+              <%= link_to "Listes", lists_path, class: "nav-link" %>
+            </li>
           </ul>
         </div>
-
       </div>
     </nav>
 
-    <main>
+    <main class="container py-4">
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+
       <%= yield %>
     </main>
 
+    <footer class="bg-white border-top py-3 mt-5">
+      <div class="container text-center text-muted">
+        © <%= Time.current.year %> WatchList — Made with ♥
+      </div>
+    </footer>
   </body>
 </html>
