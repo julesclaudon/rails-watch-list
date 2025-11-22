@@ -1,7 +1,7 @@
 <div class="row align-items-center py-5">
   <div class="col-md-7">
     <h1 class="fw-bold display-5">Bienvenue sur WatchList</h1>
-    <p class="lead text-muted">Crée tes listes de films, ajoute des signets, organise ta cinémathèque.</p>
+    <p class="lead text-muted">Crée des listes, ajoute des films et organise ta cinémathèque visuelle.</p>
     <%= link_to lists_path, class: "btn btn-primary btn-lg me-2" do %>
       Voir mes listes
     <% end %>
@@ -9,6 +9,7 @@
       Créer une liste
     <% end %>
   </div>
+
   <div class="col-md-5 text-center">
     <div class="card shadow-sm border-0">
       <div class="p-4">
@@ -25,7 +26,7 @@
 <div class="row g-4">
   <% @lists.each do |list| %>
     <div class="col-12 col-md-6 col-lg-4">
-      <%= render partial: "lists/card", locals: { list: list } %>
+      <%= render partial: "lists/card_library", locals: { list: list } %>
     </div>
   <% end %>
 </div>

@@ -25,13 +25,14 @@ class ListsController < ApplicationController
   end
 
   def edit
+    @list = List.find(params[:id])
   end
 
   def update
+      @list = List.find(params[:id])
     if @list.update(list_params)
-      redirect_to @list, notice: "Liste mise à jour."
+      redirect_to @list, notice: "Liste mise à jour avec succès"
     else
-      flash.now[:alert] = @list.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end

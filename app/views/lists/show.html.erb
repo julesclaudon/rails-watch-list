@@ -1,64 +1,75 @@
-<div class="container mt-5">
+<%= link_to lists_path, class: "btn btn-outline-secondary mb-3 d-inline-flex align-items-center gap-1" do %>
+  <i class="fa-solid fa-arrow-left me-1"></i> Retour
+<% end %>
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold text-dark"><%= @list.name %></h1>
-    <%= link_to new_list_bookmark_path(@list), class: "btn btn-success d-flex align-items-center gap-1 px-4" do %>
-      <i class="fa-solid fa-plus"></i> Ajouter un signet
-    <% end %>
-  </div>
-
+<div class="card mb-4 shadow-sm rounded-3 overflow-hidden">
   <% if @list.photo.attached? %>
-    <div class="mb-4 position-relative rounded overflow-hidden shadow-sm">
-      <%= image_tag url_for(@list.photo),
-                    class: "img-fluid w-100",
-                    style: "max-height: 360px; object-fit: cover;" %>
-      <div class="position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-25 p-2">
-        <h2 class="text-white fw-bold m-0"><%= @list.name %></h2>
-      </div>
-    </div>
+    <%= image_tag url_for(@list.photo), class: "w-100", style: "height: 320px; object-fit: cover;" %>
+  <% else %>
+    <div class="bg-secondary" style="height: 320px;"></div>
   <% end %>
 
-  <h2 class="fw-semibold mb-3">Signets</h2>
-  <% @list.bookmarks.each do |bookmark| %>
-    <div class="card shadow-sm mb-3 p-3" style="transition: transform 0.2s;"
-         onmouseover="this.style.transform='translateY(-3px)';"
-         onmouseout="this.style.transform='translateY(0)';">
-      <div class="row align-items-center">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div>
+        <h1 class="fw-bold mb-1"><%= @list.name %></h1>
+        <p class="text-muted mb-0"><%= pluralize(@list.bookmarks.count, "film") %></p>
+      </div>
 
-        <div class="col-12 col-md-3 mb-3 mb-md-0">
-          <% if bookmark.movie.poster_url.present? %>
-            <%= image_tag bookmark.movie.poster_url,
-                          alt: "Movie",
-                          class: "img-fluid rounded shadow-sm w-100",
-                          style: "height: 150px; object-fit: cover;" %>
-          <% else %>
-            <div class="bg-light text-center rounded d-flex align-items-center justify-content-center" style="height: 150px;">
-              <i class="fa-solid fa-film fa-2x text-muted"></i>
+      <div class="d-flex align-items-center gap-2">
+        <%= link_to new_list_bookmark_path(@list), class: "btn btn-success d-inline-flex align-items-center gap-2" do %>
+          <i class="fa-solid fa-plus"></i> Ajouter un film
+        <% end %>
+
+        <%= link_to edit_list_path(@list), class: "btn btn-outline-secondary d-inline-flex align-items-center gap-2" do %>
+          <i class="fa-solid fa-pen"></i> Modifier
+        <% end %>
+      </div>
+    </div>
+
+    <h3 class="mb-3">Films</h3>
+
+    <% if @list.bookmarks.any? %>
+      <div class="row g-3">
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+              <div class="row g-0 align-items-center">
+                <div class="col-4">
+                  <% if bookmark.movie.poster_url.present? %>
+                    <%= image_tag bookmark.movie.poster_url, class: "img-fluid rounded-start", style: "height:140px; object-fit:cover;" %>
+                  <% else %>
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height:140px;">
+                      <i class="fa-solid fa-film text-muted fa-2x"></i>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <h5 class="card-title mb-1"><%= bookmark.movie.title %></h5>
+                    <p class="card-text text-muted mb-2"><%= truncate(bookmark.comment.to_s, length: 140) %></p>
+
+                    <div class="d-flex justify-content-end gap-2">
+                      <%= link_to edit_bookmark_path(bookmark), class: "btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1" do %>
+                        <i class="fa-solid fa-pen"></i>
+                      <% end %>
+
+                      <%= link_to bookmark_path(bookmark),
+                          data: { turbo_method: :delete, turbo_confirm: "Supprimer ce signet ?" },
+                          class: "btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-1" do %>
+                        <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          <% end %>
-        </div>
-
-        <div class="col-12 col-md-7">
-          <h3 class="mb-2 fw-bold"><%= bookmark.movie.title %></h3>
-          <p class="text-muted mb-0"><%= bookmark.comment %></p>
-        </div>
-
-        <div class="col-12 col-md-2 d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
-          <%= link_to bookmark_path(bookmark),
-                      data: { turbo_method: :delete, turbo_confirm: "Supprimer ce signet ?" },
-                      class: "btn btn-outline-danger btn-sm d-flex align-items-center gap-2" do %>
-            <i class="fa-solid fa-trash"></i> Supprimer
-          <% end %>
-        </div>
-
+          </div>
+        <% end %>
       </div>
-    </div>
-  <% end %>
-
-  <div class="mt-4">
-    <%= link_to lists_path, class: "btn btn-secondary d-inline-flex align-items-center gap-1" do %>
-      <i class="fa-solid fa-arrow-left"></i> Retour
+    <% else %>
+      <p class="text-muted">Aucun film dans cette liste pour le moment.</p>
     <% end %>
-  </div>
 
+  </div>
 </div>

@@ -3,7 +3,8 @@ class BookmarksController < ApplicationController
   before_action :set_bookmark, only: [:edit, :update, :destroy]
 
   def new
-    @bookmark = @list.bookmarks.new
+    @list = List.find(params[:list_id])
+    @bookmark = Bookmark.new
   end
 
   def create
@@ -18,13 +19,16 @@ class BookmarksController < ApplicationController
   end
 
   def edit
-  end
+  @bookmark = Bookmark.find(params[:id])
+  @list = @bookmark.list
+end
 
   def update
+    @bookmark = Bookmark.find(params[:id])
+    @list = @bookmark.list
     if @bookmark.update(bookmark_params)
-      redirect_to @bookmark.list, notice: "Signet mis à jour."
+      redirect_to @list, notice: "Signet mis à jour avec succès"
     else
-      flash.now[:alert] = @bookmark.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
@@ -49,4 +53,3 @@ class BookmarksController < ApplicationController
     params.require(:bookmark).permit(:movie_id, :comment)
   end
 end
-

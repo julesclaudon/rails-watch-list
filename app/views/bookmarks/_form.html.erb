@@ -1,6 +1,11 @@
 <%= simple_form_for [@list, @bookmark] do |f| %>
-  <%= f.association :movie, label: "Film", prompt: "Choisir un film", input_html: { class: "form-select" } %>
-  <%= f.input :comment, label: "Commentaire (optionnel)", input_html: { class: "form-control" } %>
-  <%= f.submit "Ajouter", class: "btn btn-success mt-3" %>
-<% end %>
+  <div class="mb-3">
+    <%= f.input :comment, label: "Commentaire", input_html: { class: "form-control" } %>
+  </div>
 
+  <div class="mb-3">
+    <%= f.association :movie, label: "Choisir un film", prompt: "Sélectionner un film", input_html: { class: "form-select" } %>
+  </div>
+
+  <%= f.submit class: "btn btn-success" %>
+<% end %>

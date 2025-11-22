@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>WatchList</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,40 +10,44 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-light text-dark" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-      <div class="container">
-        <%= link_to "🎞️ WatchList", root_path, class: "navbar-brand fw-bold" %>
+  <body class="bg-light">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm mb-4">
+      <div class="container">
+        <%= link_to "WatchList", lists_path, class: "navbar-brand fw-bold fs-2" %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navMain">
-          <ul class="navbar-nav ms-auto align-items-center">
-            <li class="nav-item me-2">
-              <%= link_to "Listes", lists_path, class: "nav-link" %>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <%= link_to "Listes", lists_path, class: "nav-link fs-5" %>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <main class="container py-4">
+    <div class="container">
       <% if notice %>
-        <div class="alert alert-success"><%= notice %></div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       <% end %>
+
       <% if alert %>
-        <div class="alert alert-danger"><%= alert %></div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       <% end %>
 
       <%= yield %>
-    </main>
+    </div>
 
-    <footer class="bg-white border-top py-3 mt-5">
-      <div class="container text-center text-muted">
-        © <%= Time.current.year %> WatchList — Made with ♥
-      </div>
-    </footer>
   </body>
 </html>
